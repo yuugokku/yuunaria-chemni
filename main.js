@@ -2,46 +2,52 @@ const inputTextarea = document.querySelector("#input-textarea");
 const outputTextarea = document.querySelector("#output-textarea");
 
 const corr = [
-  // 長母音
-  [/aa/g, 'aq'],[/Aa/g, 'Aq'],[/AA/g, 'AQ'],
-  [/ii/g, 'iq'],[/Ii/g, 'Iq'],[/II/g, 'IQ'],
-  [/uu/g, 'uq'],[/Uu/g, 'Uq'],[/UU/g, 'UQ'],
-  [/ee/g, 'eq'],[/Ee/g, 'Eq'],[/EE/g, 'EQ'],
-  [/oo/g, 'oq'],[/Oo/g, 'Oq'],[/OO/g, 'OQ'],
+  ['aa', 'aq'],['Aa', 'Aq'],['AA', 'AQ'],
+  ['ii', 'iq'],['Ii', 'Iq'],['II', 'IQ'],
+  ['uu', 'uq'],['Uu', 'Uq'],['UU', 'UQ'],
+  ['ee', 'eq'],['Ee', 'Eq'],['EE', 'EQ'],
+  ['oo', 'oq'],['Oo', 'Oq'],['OO', 'OQ'],
 
-  // 二文字で転写される子音
-  [/th/g, 'l'],[/Th/gi, 'L'],
-  [/ch/g, 'c'],[/Ch/gi, 'C'],
+  ['th', 'l' ],['Th', 'L' ],
+  ['ch', 'c' ],['Ch', 'C' ],
 
-  // 長子音
-  [/tl/g, 'vl'],[/Tl/g, 'Vl'],[/TL/g, 'VL'],
-  [/cc/g, 'vc'],[/Cc/g, 'Vc'],[/CC/g, 'VC'],
-  [/zz/g, 'vz'],[/Zz/g, 'Vz'],[/ZZ/g, 'VZ'],
-  [/ss/g, 'vs'],[/Ss/g, 'Vs'],[/SS/g, 'VS'],
-  [/dd/g, 'vd'],[/Dd/g, 'Vd'],[/DD/g, 'VD'],
-  [/rr/g, 'vr'],[/Rr/g, 'Vr'],[/RR/g, 'VR'],
-  [/ff/g, 'vf'],[/Ff/g, 'Vf'],[/FF/g, 'VF'],
-  [/tt/g, 'vt'],[/Tt/g, 'Vt'],[/TT/g, 'VT'],
-  [/gg/g, 'vg'],[/Gg/g, 'Vg'],[/GG/g, 'VG'],
-  [/bb/g, 'vb'],[/Bb/g, 'Vb'],[/BB/g, 'VB'],
-  [/hh/g, 'vh'],[/Hh/g, 'Vh'],[/HH/g, 'VH'],
-  [/nn/g, 'vn'],[/Nn/g, 'Vn'],[/NN/g, 'VN'],
-  [/nn/g, 'vn'],[/Nn/g, 'Vn'],[/NN/g, 'VN'],
-  [/jj/g, 'vj'],[/Jj/g, 'Vj'],[/JJ/g, 'VJ'],
-  [/mm/g, 'vm'],[/Mm/g, 'Vm'],[/MM/g, 'VM'],
-  [/kk/g, 'vk'],[/Kk/g, 'Vk'],[/KK/g, 'VK'],
-  [/pp/g, 'vp'],[/Pp/g, 'Vp'],[/PP/g, 'VP']
+  ['tl', 'vl'],['Tl', 'Vl'],['TL', 'VL'],
+  ['cc', 'vc'],['Cc', 'Vc'],['CC', 'VC'],
+  ['zz', 'vz'],['Zz', 'Vz'],['ZZ', 'VZ'],
+  ['ss', 'vs'],['Ss', 'Vs'],['SS', 'VS'],
+  ['dd', 'vd'],['Dd', 'Vd'],['DD', 'VD'],
+  ['rr', 'vr'],['Rr', 'Vr'],['RR', 'VR'],
+  ['ff', 'vf'],['Ff', 'Vf'],['FF', 'VF'],
+  ['tt', 'vt'],['Tt', 'Vt'],['TT', 'VT'],
+  ['gg', 'vg'],['Gg', 'Vg'],['GG', 'VG'],
+  ['bb', 'vb'],['Bb', 'Vb'],['BB', 'VB'],
+  ['hh', 'vh'],['Hh', 'Vh'],['HH', 'VH'],
+  ['nn', 'vn'],['Nn', 'Vn'],['NN', 'VN'],
+  ['nn', 'vn'],['Nn', 'Vn'],['NN', 'VN'],
+  ['jj', 'vj'],['Jj', 'Vj'],['JJ', 'VJ'],
+  ['mm', 'vm'],['Mm', 'Vm'],['MM', 'VM'],
+  ['kk', 'vk'],['Kk', 'Vk'],['KK', 'VK'],
+  ['pp', 'vp'],['Pp', 'Vp'],['PP', 'VP']
 ];
 
 function convertLatinToYuqnaria() {
   let text = inputTextarea.value;
   for(let i = 0; i < corr.length; i++) {
-    text = text.replace(corr[i][0], corr[i][1]);
+    const re = new RegExp(corr[i][0], "g");
+    text = text.replace(re, corr[i][1]);
   }
+  text = text.replace(/(T|C)H/g, "$1");
   outputTextarea.value = text;
 }
 
 function convertYuqnariaToLatin() {
+  let text = inputTextarea.value;
+  for(let i = 0; i < corr.length; i++) {
+    const re = new RegExp(corr[i][1], "g")
+    text = text.replace(re, corr[i][0]);
+  }
+  text = text.replace(/(T|C)h([A-Z])/g, "$1H$2"),
+  outputTextarea.value = text;
 }
 
 const latinToYuqnariaButton = document.querySelector("#latin-to-yuqnaria");
