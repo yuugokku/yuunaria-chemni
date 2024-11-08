@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>有字転写とユーナリアを変換するやつ</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h1>有字転写とユーナリアを変換するやつ</h1>
+        <main class="main-content">
+            <div>
+                <button type="button" id="latin-to-yuqnaria">転写→ユーナリア</button>
+                <button type="button" id="yuqnaria-to-latin">ユーナリア→転写</button>
+            </div>
+            <div class="textarea-box">
+                <textarea id="input-textarea" rows="5"></textarea>
+            </div>
+            <div class="textarea-box">
+                <textarea id="output-textarea" rows="5"></textarea>
+            </div>
+            <div>
+                <button type="button" id="copy-output">結果をコピー</button>
+            </div>
+        </main>
+        <script src="./main.js" defer></script>
+    </body>
+</html>
